@@ -36,13 +36,13 @@ jobs:
         run: docker push ${{secrets.DOCKER_USER}}/tensorflow-${{secrets.MODEL_NAME}}:${{ github.sha }}
       
       - name: update docker user in k8 
-        run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifests/linear_model_k8s.yaml
+        run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifest/linear_model_k8s.yaml
 
       - name: update model name in k8 
-        run: sed -i 's/{model_name}/${{github.event.client_payload.MODEL_NAME}}/g' manifests/linear_model_k8s.yaml
+        run: sed -i 's/{model_name}/${{github.event.client_payload.MODEL_NAME}}/g' manifest/linear_model_k8s.yaml
 
       - name: update _ by - 
-        run: sed -i 's/_/-/g' manifests/linear_model_k8s.yaml
+        run: sed -i 's/_/-/g' manifest/linear_model_k8s.yaml
 
       - name: update sha in k8
         run: sed -i 's/{github.sha}/${{ github.sha }}/g' manifest/linear_model_k8s.yaml
