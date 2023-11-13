@@ -27,10 +27,10 @@ jobs:
         run: docker run -d --name serving_base tensorflow/serving
 
       - name: copy model to the Docker image
-        run: docker cp ${{github.event.client_payload.MODEL_NAME}} serving_base:/models/${{github.event.client_payload.MODEL_NAME}}
+        run: docker cp ${{secrets.MODEL_NAME}} serving_base:/models/${{secrets.MODEL_NAME}}
       
       - name: Build the custom Docker image
-        run: docker commit --change "ENV MODEL_NAME ${{github.event.client_payload.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
+        run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
   
       - name: Docker Push
         run: docker push ${{secrets.DOCKER_USER}}/tensorflow-${{github.event.client_payload.MODEL_NAME}}:${{ github.sha }}
