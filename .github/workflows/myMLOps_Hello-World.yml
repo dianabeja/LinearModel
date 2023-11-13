@@ -1,16 +1,18 @@
 name: Modelos deploy
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     container: dianabeja/aiops:latest
     steps:
-      - name: Run a one-line script
+      - uses: actions/checkout@v2
+      
+      - name: helloword 
         run: echo Hello, world!
       - name: run model 
         run: python linear-model.py
