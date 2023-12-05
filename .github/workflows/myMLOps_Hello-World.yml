@@ -4,16 +4,18 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:
+
 jobs:
+
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v2
       - name: install unzip 
         run: sudo apt-get install unzip
       - name: Download model
-        run: wget -O catdog-model.zip 'https://firebasestorage.googleapis.com/v0/b/heartmodel-caedd.appspot.com/o/catdog-model.zip?alt=media&token=ca6796ef-cbb0-4072-917a-56b4ff82eeeb'
+        run: wget -O catdog-model.zip https://firebasestorage.googleapis.com/v0/b/heartmodel-caedd.appspot.com/o/catdog-model.zip?alt=media&token=ca6796ef-cbb0-4072-917a-56b4ff82eeeb
       - name: extract model
         run: unzip catdog-model.zip
       - name: show dir
@@ -24,6 +26,7 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
+          
       - name: Download and run the Docker base image
         run: docker run -d --name serving_base tensorflow/serving
 
