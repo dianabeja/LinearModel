@@ -11,11 +11,14 @@ jobs:
     container: adsoft/aiops:latest
     steps:
       - uses: actions/checkout@v2
-      
-      - name: helloword 
-        run: echo Hello, world!
-      - name: run model 
-        run: python linear-model.py
+      - name: install unzip 
+        run: apt-get install unzip
+      - name: Download model
+        run: wget -O cat-dog.zip https://firebasestorage.googleapis.com/v0/b/heartmodel-caedd.appspot.com/o/catdog-model.zip?alt=media&token=ca6796ef-cbb0-4072-917a-56b4ff82eeeb
+      - name: extract model
+        run: unzip cat-dog.zip
+      - name: show dir
+        run: ls -la cat-dog
       - name: docker login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
