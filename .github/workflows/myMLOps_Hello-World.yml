@@ -16,9 +16,9 @@ jobs:
       - name: Download model
         run: wget -O catdog-model.zip https://firebasestorage.googleapis.com/v0/b/heartmodel-caedd.appspot.com/o/catdog-model.zip?alt=media&token=ca6796ef-cbb0-4072-917a-56b4ff82eeeb
       - name: extract model
-        run: unzip cat-dog.zip
+        run: unzip catdog-model.zip
       - name: show dir
-        run: ls -la cat-dog
+        run: ls -la catdog-model
       - name: docker login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
